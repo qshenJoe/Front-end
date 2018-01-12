@@ -1,12 +1,16 @@
 # Chapter 10: Introducing CSS
+
 <em>Thinking inside the box</em>
 Testing pages on different browsers: BrowserShots.org
 CSS bugs: PositionIsEverything.net
 <hr />
+
 * A CSS rule contains two parts:
 ** a selector
 ** a declaration
+
 ### CSS selectors
+
 * universal selector: apply to all elements in the document
 ** \* {}
 * type selector: match element names
@@ -20,12 +24,16 @@ CSS bugs: PositionIsEverything.net
 ** li>a {}: target any &lt;a&gt; elements that are children of an &lt;li&gt; element(but not other &lt;a&gt; elements in the page)
 * descendant selector: match an element that is a descendent of another specified element(not just a direct child of that element)
 ** p a {}: target any &lt;a&gt; elements that sit inside a &lt;p&gt; element, even if there are other elements nested between them
+
 ##### these two are less commonly used
+
 * adjacent sibling selector: match an element that is the next sibling of another
 ** h1+p {}
 * general sibling selector: match an element that is a sibling of another, although it does not have to be the directly preceding element
 ** h1\~p {}
+
 ### How CSS rules cascade
+
 * last rule: if two selectors are identical, the latter of the two will take precedence
 * specificity: if one selector is more specific than the others, the more specific rule will take precedence over more general ones
 ** h1 is more specific than \*
