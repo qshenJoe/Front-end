@@ -44,23 +44,29 @@ To enable the strict mode for the entire script, add the following statement:
     
 To enable the strict mode for a specific function, add the above statement inside a function:
 
+```javascript
     function() {
       "use strict";
       // function body
     }
-    
+```
+
 ## Statement
 It is recommended always end a statement with a semicolon:
 
+```javascript
     var sum = a + b;
     var product = a * b;
+```
 
 Multiple statements are combined into a block using a pair of curly braces "{" and "}":
 
+```javascript
     if (age < 18) {
       alert("Not old enough!");
       age++;
     }
+```
     
 **It is preferred to always use code blocks with control statements such as *if*.**
 
@@ -68,44 +74,55 @@ Multiple statements are combined into a block using a pair of curly braces "{" a
 Variables in JavaScript are loosely typed, being able to hold any type of data.<br />
 Follow the naming syntax:
 
+```javascript
     // var is an operator and age is an identifier.
     var age;
     /* With no value initialized or assigned to age,
      * the variable will hold a value - undefined
      */
+```
 
 Define the variable and set its value:
 
+```javascript
     var age = 21; // Here age is defined to hold a number value of 21
+```
 
 This does not necessarily mean that we cannot change the value of the variable,
 we can even change the data type of it.
 
+```javascript
     var age = 21;
     age = "Old Enough"; // This is not recommended.
-    
+```
+
 Using *var* to define a variable makes it local:
 
+```javascript
     function sayHi() {
       var message = "Hi!"; // local variable
     }
     sayHi();
     alert(message); // you will get error information
+```
 
 Defining a variable without *var* makes it global:
-    
+
+```javascript
     function sayHi() {
       message = "Hi!"; // global variable
     }
     sayHi();
     alert(message); // "Hi!";
+```
 
 **It is not recommended to omit var to define global variables, which makes it hard to maintain code and might cause confusion.**
 
 Define more variables using one *var*:
 
+```javascript
     var name = "Joe",
         age = 21,
         gender = "Male",
         married = false;
-
+```
