@@ -98,6 +98,14 @@ Type conversion:
 |Object|Any object|`null`|
 |Undefined|n/a|`undefined`|
 
+Understanding the above table is important, because some flow control statements such as the `if` statement will automatically perform the Boolean conversion.
+
+```javascript
+    var age = 21;
+    if (age) {
+        alert("Variable defined");
+    }
+```
 
 ## The Number Type
 
