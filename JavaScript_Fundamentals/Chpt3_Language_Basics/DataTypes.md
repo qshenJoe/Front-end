@@ -108,6 +108,137 @@ Understanding the above table is important, because some flow control statements
 ```
 
 ## The Number Type
+* Integer formats
+ * Decimal integer
+ * Octal(base 8) integer
+ * hexadecimal(base 16) integer
+Here are some examples:
+
+```javascript
+    var intNum = 15; // integer
+    var octalNum1 = 070; // octal for 56
+    var octalNum2 = 079; // invalid octal - interpreted as 79
+    var octalNum3 = 08; // invalid octal - interpreted as 8
+    
+    var hexNum1 = 0xA; // hexadecimal for 10
+    var hexNum2 = 0x1f; // hexadecimal for 31
+```
+**Octal and hexadecimal numbers are treated as decimal numbers in all arithmetic operations.**
+
+* Floating-point values
+
+```javascript
+    var floatNum1 = 1.1;
+    var floatNum2 = 0.1;
+    var floatNum3 = .1; // valid but not recommended
+```
+
+ECMAScript always looks for ways to convert floating-point values into integers in such cases to save memory:
+
+```javascript
+    var floatNum1 = 1.; // missing digit after decimal - interpreted as integer 1
+    var floatNum2 = 10.0; // whole number - interpreted as integer 10
+```
+
+Use *e-notation* to represent large floating-point values:
+
+```javascript
+    var floatNum = 3.125e7; // equal to 31250000
+```
+
+**Rounding errors**:
+```javascript
+    if (a + b == 0.3){
+        alert("You got 0.3!");
+    }
+    /*
+     * We should avoid testing specific floating-point values
+     * Because 0.1 + 0.2 yields 0.30000000000000004
+     */
+```
+**Range of values**
+* Numbers smaller than Number.MIN_VALUE are represented as `-Infinity`
+* Smallest number is stored in Number.MIN_VALUE and is 5e-324
+* Largest number is stored in Number.MAX_VALUE and is 1.7976931348623157e+308
+* Numbers larger than Number.MAX_VALUE are represented as `Infinity`
+
+There is the `isFinite()` function to check whether a number is finite.
+
+```javascript
+    var result = Number.MIN_VALUE + Number.MAX_VALUE;
+    alert(isFinite(result)); // false
+```
+
+### NaN
+`NaN` is short for Not a Number. <br />
+In ECMAScript, dividing a number by 0 always returns `NaN`.
+* Any operation involving `NaN` always returns `NaN`
+* `NaN` is not equal to any value, including itself.
+
+```javascript
+    alert(NaN == NaN); // false
+```
+
+ECMAScript has provided isNaN() function to check whether a variable is of `NaN` value.
+
+```javascript
+    alert(isNaN(NaN)); // true
+    alert(isNaN(10)); // false
+    alert(isNaN("10")); // false, "10" can be converted to a number
+    alert(isNaN("Hello")); // true, cannot be converted to a number
+    alert(isNaN(true)); // false, can be converted to number 1
+```
+
+### Number conversions
+Three functions to convert nonnumeric values into numbers:
+* Number() - can be used on any data type
+  * Boolean: `true` -> 1 and `false` -> 0
+  * numbers
+  * `null`: returns 0
+  * `undefined`: returns `NaN`
+  * strings:
+    * "123" -> 123; "011" -> 11
+    * "1.1" -> 1.1; "001.1" -> 1.1
+    * "0xf" -> 15
+    * "" -> 0
+    * other formats -> `NaN`
+  * objects: `valueOf()` and `toString()` methods are called accordingly.
+* parseInt() - used to convert strings to numbers
+
+```javascript
+    var num1 = parseInt("1234blue"); // 1234
+    var num2 = parseInt(""); // NaN
+    var num3 = parseInt("0xA"); // 10 - hexadecimal
+    var num4 = parseInt("22.5"); // 22
+    var num5 = parseInt("70"); // 70
+    var num6 = parseInt("0xf"); // 15 - hexadecimal
+    var num7 = parseInt("070"); // 70
+```
+  * By using a second argument:
+  
+```javascript
+    var num = parseInt("0xAF", 16); // 175
+    var num1 = parseInt("AF", 16); // 175
+    var num2 = parseInt("AF"); // NaN
+```
+
+```javascript
+    var num1 = parseInt("10", 2); // 2 - parsed as binary
+    var num2 = parseInt("10", 8); // 8 - parsed as octal
+    var num3 = parseInt("10", 10); // 10 - parsed as decimal
+    var num4 = parseInt("10", 16); // 16 - parsed as hexadecimal
+```
+
+* parseFloat() - used to convert strings to numbers
+
+```javascript
+    var num1 = parseFloat("1234blue"); // 1234 - integer
+    var num2 = parseFloat("0xA"); // 0
+    var num3 = parseFloat("22.5"); // 22.5
+    var num4 = parseFloat("22.34.5"); // 22.34
+    var num5 = parseFloat("0908.5"); // 908.5
+    var num6 = parseFloat("3.125e7"); // 32150000
+```
 
 ## The String Type
 
