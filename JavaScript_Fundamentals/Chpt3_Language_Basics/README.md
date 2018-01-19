@@ -1,0 +1,2 @@
+# Remaining work
+* bitwise manipulation
