@@ -5,4 +5,4 @@ I would like not to make records according to the order of content of the book
 # Records
 * January 17, 2018 - **Chapter 3**: Language basics - Syntax
 * January 18, 2018 - **Chapter 3**: Language basics - Data Types
-
+* January 19, 2018 - **Chapter 3**: Language basics - Operators, Statements and Functions
