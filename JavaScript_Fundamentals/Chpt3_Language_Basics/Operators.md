@@ -85,6 +85,36 @@ From right to left, 31 bits are used to represent the numeric value of integer. 
 
 ## Boolean Operators
 
+### Logical NOT
+Using exclamation `!`
+```javascript
+    
+    alert(!false);  // true
+    alert(!"blue"); // false
+    alert(!0);  // true
+    alert(!""); // true
+    alert(!NaN);    // true
+    alert(!12345);  // false
+    alert(!null);   // true
+    alert(!undefined);  // true
+```
+By using two **NOT** operators, we can simulate the behavior of the `Boolean()` casting function.
+
+### Logical AND
+Using double amperand `&&`
+
+**The logical AND operator is a short-circuited operation: If the first operand determines the result, the second will never evaluated.**
+
+```javascript
+    var married = false;
+    var result = (married && someUndeclaredVariable);   // error occurs here
+    alert(result);  // this line will never executes
+    
+    var married = true;
+    var result = (married && someUndeclaredVariable);   // no error
+    alert(result);  // works
+```
+
 ## Multiplicative Operators
 
 ## Additive Operators
