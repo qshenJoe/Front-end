@@ -241,6 +241,96 @@ Three functions to convert nonnumeric values into numbers:
 ```
 
 ## The String Type
+Both double quotes(") and single quotes(') are legal.
+
+```javascript
+    var firstName = "Joe";
+    var lastName = 'Shen';
+    var gender = 'Male"; // syntax error - quotes must match
+```
+### Character literals
+|**LITERAL**|**MEANING**|
+|-----|-----|
+|`\n`|New line|
+|`\t`|Tab|
+|`\b`|Backspace|
+|`\r`|Carriage return|
+|`\f`|Form feed|
+|`\\`|Backslash(\)|
+|`\'`|Single quote|
+|`\"`|Double quote|
+|`\xnn`|Hexadecimal code|
+|`\unnnn`|Unicode character|
+
+These character literals will be interpreted like a single character.
+
+```javascript
+    var text = "This is how A represented with hexadecimal code: \x41";
+    alert(text.length); // outputs 50
+```
+However, this property returns the number of 16-bit characters in the string.
+If a string contains double-byte characters, the `length` property may not accurately return the number of characters in the string.
+
+**The nature of Strings**
+Strings are immutable in ECMAScript.
+
+### Converting to a string
+Two possible ways:
+* `toString()` method
+
+```javascript
+    var age = 21;
+    var ageAsString = age.toString(); // "21"
+    var married = false;
+    var marriedAsString = married.toString(); // "false"
+    
+    /* tostring() applies to numbers,
+     * Booleans, objects, and strings.
+     * If a value is null or undefined,
+     * the method is not available.
+     */
+```
+
+When used on a number value, `toString()` takes a single argument:
+
+```javascript
+    var num = 10;
+    alert(num.toString()); // "10"
+    alert(num.toString(2)); // "1010"
+    alert(num.toString(8)); // "12"
+    alert(num.toString(10)); // "10"
+    alert(num.toString(16)); // "a"
+```
+
+* `String()` casting function
+  * If a value has a `toString()` method, it is called and the result is returned.
+  * If a value is `null`, "null" is returned.
+  * If a value is `undefined`, "undefined" is returned.
+  
+```javascript
+    var value1 = 10;
+    var value2 = true;
+    var value3 = null;
+    var value4;
+    
+    alert(String(value1)); // "10"
+    alert(String(value2)); // "true"
+    alert(String(value3)); // "null"
+    alert(String(value4)); // "undefined"
+```
 
 ## The Object Type
-    
+We can create our own objects by creating instances of the `Object` type and adding properties and/or methods to it.
+
+```javascript
+    var myObject = new Object();
+```
+
+Each `Object` instance has the following properties and methods:
+* `constructor` - the `Object()` function
+* `hasOwnProperty(propertyName)` - indicates if the given property exists on the object instance(not on the prototype). The propertyName must be a string.
+* `isPrototypeOf(object)`
+* `propertyIsEnumerable(propertyName)` - indicates if the given property can be enumerated using the `for-in` statement.
+* `toLocaleString()`
+* `toString()`
+* `valueOf()`
