@@ -69,5 +69,62 @@ Consider the following tables: <br />
 **Both obj1 and obj2 are pointing to a same object.**
 
 ## Argument Passing
+All function arguments in ECMAScript are passed by value. <br />
+Example I:
+
+```javascript
+    function addTen(num) {
+        num += 10;
+        return num;
+    }
+    
+    var count = 20;
+    var result = addTen(count);
+    alert(count);    // 20
+    alert(result);    // 30
+```
+
+Example II:
+
+```javascript
+     function setName(obj) {
+         obj.name = "Joe";    
+     }
+     
+     var person = new Object();
+     setName(person);
+     alert(person.name);    // "Joe"
+```
+
+Example III:
+
+```javascript
+    function setName(obj) {
+       obj.name = "Joe";
+       obj = new Object();
+       obj.name = "Qiaohong";
+    }
+    
+    var person = new Object();
+    setName(person);
+    alert(person.name);    // "Joe"
+```
+
+**Think of function arguments in ECMAScript as nothing more than local variables.**
 
 ## Determining Type
+`typeof` determines if a variable is a string, number, Boolean or `undefined`. 
+If the value is an object or `null`, then `typeof` returns "object". <br />
+<br />
+As for reference values: `instanceof` can be used. <br />
+Syntax:
+
+```javascript
+    result = variable instanceof constructor
+    
+    alert(person instanceof Object);
+    alert(colors instanceof Array);
+    alert(pattern instanceof RegExp);
+```
+
+`instanceof` returns `true` for reference values and `false` for primitive values.
