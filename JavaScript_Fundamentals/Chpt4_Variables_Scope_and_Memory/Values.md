@@ -1,4 +1,6 @@
 # Primitive and Reference Values
+**Primitive values are of a fixed size and so are stored in memory on the stack.**<br />
+**Reference values are objects and are stored in memory on the heap.**<br />
 * primitive values: actual value stored in the variable
   * variables are accessed by value
 * reference values: are objects stored in memory
