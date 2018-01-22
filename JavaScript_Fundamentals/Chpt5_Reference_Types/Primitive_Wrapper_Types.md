@@ -206,17 +206,183 @@ Two methods access specific characters in the string: `charAt()` and `charCodeAt
 ```
 
 ### String-Manipulation Methods
+* `concat()`
+    * is used to concatenate one or more strings to another
+    * accepts any number of arguments
+    
+```javascript
+    var stringValue = "hello ";
+    var result = stringValue.concat("world");
+    alert(result);      // "hello world"
+    alert(stringValue);     // "hello"
+    
+    var stringValue = "hello ";
+    var result = stringValue.concat("world", "!");
+    alert(result);      // "hello world!"
+    alert(stringValue);     // "hello"
+    
+    /* 
+     * The addition operator(+)
+     * is used more often and, in most cases,
+     * actually performs better than the 
+     * concat() method.
+     */
+```
+
+ECMAScript provides three methods for creating string values from a substring:
+* `slice()`
+* `substr()`
+* `substring()`
+* All three methods return a substring of the string they act on
+* All accept either one or two arguments
+    * the first is the position where capture of the substring begins
+    * the second argument, if used, indicates where the operation should stop
+* For `slice()` and `substring()`, the second argument is the position before which capture is stopped(all characters up to this point are included except the character at that point)
+* For `substr()`, the second argument is the number of characters to return
+* If the second argument is omitted, it is assumed that the ending position is the length of the string
+* All of these methods do not alter the value of the string itself
+
+```javascript
+    var stringValue = "hello world";
+    alert(stringValue.slice(3));        // "lo world"
+    alert(stringValue.substring(3));    // "lo world"
+    alert(stringValue.substr(3));       // "lo world"
+    alert(stringValue.slice(3, 7));     // "lo w"
+    alert(stringValue.substring(3, 7));     // "lo w"
+    alert(stringValue.substr(3, 7));        // "lo worl"    returning 7 characters
+```
+
+There are different behaviors for these methods when an argument is a negative number.
+* For the `slice()` method, a negative argument is treated as the length of the string plus the negative argument.
+* For the `substr()` method, a negative first argument is treated as the length of the string plus the number, whereas a negative second number is converted to 0.
+* For the `substring()` method, all negative numbers are converted to 0.
+
+```javascript
+    var stringValue = "hello world";
+    alert(stringValue.slice(-3));       // "rld"
+    alert(stringValue.substring(-3));       // "hello world"    all negative numbers are converted 0
+    alert(stringValue.substr(-3));      // "rld"
+    alert(stringValue.slice(3, -4));       // "lo w"  which is equivalent to .slice(3, 7)
+    alert(stringValue.substring(3, -4));    // "hel" which is equivalent to .substring(3, 0) -> .substring(0, 3)
+    alert(stringValue.substr(3, -4));       // "" empty string
+```
 
 ### String Location Methods
+There are two methods for locating substrings within another string:
+* `indexOf()` starts at the beginning
+* `lastIndexOf()` starts from the end of the string
+* return the position(-1 if the substring isn't found)
+
+```javascript
+    var stringValue = "hello world";
+    alert(stringValue.indexOf("o"));        // 4
+    alert(stringValue.lastIndexOf("o"));    // 7
+    
+    /* 
+     * each of them accepts an optional second argument
+     * that indicates the position to start searching from
+     * within the string.
+     * for indexOf(), it begins at the given position to the
+     * end of the string, ignoring everything before the start position.
+     * for lastIndexOf(), it searches from the given position and continues
+     * searching toward the beginning of the string, ignoring everything between
+     * the given position and the end of the string.
+     */
+     
+     var stringValue = "hello world";
+     alert(stringValue.indexOf("o", 6));        // 7
+     alert(stringValue.lastIndexOf("o", 6));    // 4
+```
+
+Using the second argument allows you to locate all instances of a substring by looping callings to `indexOf()` or `lastIndexOf()`:
+
+```javascript
+    var stringValue = "Lorem ipsum dolor sit amet, consectetur adipisicing elit";
+    var positions = new Array();
+    var pos = stringValue.indexOf("e");
+    
+    while(pos > -1) {
+        positions.push(pos);
+        pos = stringValue.indexOf("e", pos + 1);
+    }
+    
+    alert(positions);   // "3,24,32,35,52"
+```
 
 ### The trim() Method
+The `trim()` method creates a copy of the string, removes all leading and trailing white space, and then returns the result.
+
+```javascript
+    var stringValue = "    hello world    ";
+    var trimmedStringValue = stringValue.trim();
+    alert(stringValue);     // "    hello world    "
+    alert(trimmedStringValue);      // "hello world"
+    
+    // trimLeft() and trimRight() can be used
+```
 
 ### String Case Methods
+Case conversion methods
+* `toLowerCase()`
+* `toUpperCase()`
+* `toLocaleLowerCase()`
+* `toLocaleUpperCase()`
 
 ### String Pattern-Matching Methods
+This part will be edited after finishing the RegExp part.
 
 ### The localeCompare() Method
+The `localeCompare()` method compares one string to another and returns one of three values:
+* If the string should come alphabetically before the string argument, a negative number is returned. (Most often this is -1).
+* If the string is equal to the string argument, 0 is returned.
+* If the string should come alphabetically after the string argument, a positive number is returned. (Most often this is 1).
+
+```javascript
+    var stringValue = "yellow";
+    alert(stringValue.localeCompare("brick"));  // 1
+    alert(stringValue.localeCompare("yellow")); // 0
+    alert(stringValue.localeCompare("zoo"));    // -1
+    
+    // because the values are implementation-specific, it is best to use localeCompare()
+    
+    function determineOrder(value) {
+        var result = stringValue.localeCompare(value);
+        if (result < 0) {
+            alert("The string 'yellow' comes before the string '" + value + "'.");
+        } else if (result > 0) {
+            alert("The string 'yellow' comes after the string '" + value + "'.");
+        } else {
+            alert("The string 'yellow' is equal to the string '" + value + "'.");
+        }
+    }
+    
+    determineOrder("brick");
+    determineOrder("yellow");
+    determineOrder("zoo");
+```
 
 ### The fromCharCode() Method
+This method's job is to take one or more character codes and convert them into a string.
+
+```javascript
+    // Essentially this is the reverse operation from the charCodeAt() instance method
+    alert(String.fromCharCode(104, 101, 108, 108, 111));    // "hello"
+```
 
 ### HTML Methods
+Typically thses methods aren't used, because they tend to create nonsemantic markup
+
+|**METHOD**|**OUTPUT**|
+|---|---|
+|`anchor(name)`|\<a name="name">string\</a>|
+|`big()`|\<big>string\</big>|
+|`bold()`|\<b>string\</b>|
+|`fixed()`|\<tt>string\</tt>|
+|`fontcolor(color)`|\<font color="color">string\</font>|
+|`fontsize(size)`|\<font size="size">string\</font>|
+|`italics()`|\<i>string\</i>|
+|`link(url)`|\<a href="url">string\</a>|
+|`small()`|\<small>string\</a>|
+|`strike()`|\<strike>string\</strike>|
+|`sub()`|\<sub>string\</sub>|
+|`sup()`|\<sup>string\</sup>|
