@@ -125,11 +125,82 @@ The primary method of a `RegExp` object is `exec()`, which is intended for use w
     var pattern = /mom( and dad( and baby)?)?/gi;
     
     var matches = pattern.exec(text);
-    alert(matches.index);   // 0
+    alert(matches.index);   // 0 because the entire text matches
     alert(matches.input);   // "mom and dad and baby"
     alert(matches[0]);    // "mom and dad and baby"
     alert(matches[1]);    // " and dad and baby"
     alert(matches[2]);    // " and baby"
+    
+    /* 
+     * This execution is returning an array
+     * in which the index 0 contains the entire matched string
+     * and index 1 to n contains 1st to nth capturing groups
+     */
+```
+
+The `exec()` method returns information about one match at a time even if the pattern is global. When the global flag is not specified, calling `exec()` on the same string multiple times will always return information about the first match. With the `g` flag set on the pattern, each call to `exec()` moves further into the string looking for matches:
+
+```javascript
+    var text = "cat, bat, sat, fat";
+    var pattern1 = /.at/;
+    
+    var matches = pattern1.exec(text);
+    alert(matches.index);       // 0
+    alert(matches[0]);      // cat
+    alert(pattern1.lastIndex);      // 0
+    
+    matches = pattern1.exec(text);
+    alert(matches.index);       // 0
+    alert(matches[0]);      // cat
+    alert(pattern1.lastInex);       //0
+    
+    var pattern2 = /.at/g;
+    
+    var matches = pattern2.exec(text);
+    alert(matches.index);       // 0
+    alert(matches[0]);      // cat
+    alert(pattern2.lastIndex);   // 0
+    
+    matches = pattern2.exec(text);
+    alert(matches.index);   // 5
+    alert(matches[0]);      // bat
+    alert(pattern2.lastIndex);  // 8
+```
+
+Another method of regular expression is `test()`, which accepts a string argument and returns `true` if the pattern matches the argument and `false` if it does not. This is useful when you want to know if a pattern is matched, but you have no need for the actual matched text.
+
+```javascript
+    var text = "000-00-0000";
+    var pattern = /\d{3}-\d{2}-\d{4}/;
+    
+    if (pattern.test(text)) {
+        alert("The pattern was matched.");
+    }
+    
+    /* 
+     * This functionality is often used for validating user input,
+     * when you care only if the input is valid,
+     * not necessarily why it's invalid.
+     */
+```
+
+The inherited methods of `toLocaleString()` and `toString()` each return the literal representation of the regular expression, regardless of how it was created.
+
+```javascript
+    var pattern = new RegExp("\\[bc\\]at", "gi");
+    alert(pattern.toString());      // \/[bc\]at/gi
+    alert(pattern.toLocaleString());    // /\[bc\]at/gi
+    
+    /* 
+     * Even though the pattern in this example is created
+     * using the RegExp constructor, the toLocaleString()
+     * and toString() methods return the pattern as if 
+     * it were specified in literal format.
+     */
+     
+     /*
+      * The valueOf() method for a regular expression returns the regular expression itself
+      */
 ```
 ## RegExp Constructor Properties
 
